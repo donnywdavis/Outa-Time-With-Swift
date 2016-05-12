@@ -8,14 +8,30 @@
 
 import UIKit
 
+protocol DestinationDateSelectionDelegate: class {
+    func selectedDestinationDate(date: NSDate)
+}
+
 class DestinationViewController: UIViewController {
     
+    //
+    // MARK: Properties
+    //
+    
     @IBOutlet weak var destinationDatePicker: UIDatePicker!
+    
+    weak var delegate: DestinationDateSelectionDelegate?
 
+    //
+    // MARK: View Lifecycle
+    //
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Destination Date"
 
-        // Do any additional setup after loading the view.
+//        destinationDatePicker.performSelector(Selector("setHighlightsToday:"), withObject:UIColor.whiteColor())
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,15 +39,9 @@ class DestinationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.selectedDestinationDate(destinationDatePicker.date)
     }
-    */
 
 }

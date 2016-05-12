@@ -14,7 +14,17 @@ enum DateLabels {
     case DepartedTime
 }
 
-class ViewController: UIViewController {
+enum TimerOperations {
+    case Start
+    case Stop
+}
+
+enum SpeedDirection {
+    case Increase
+    case Decrease
+}
+
+class ViewController: UIViewController, DestinationDateSelectionDelegate {
     
     //
     // MARK: Properties
@@ -31,6 +41,7 @@ class ViewController: UIViewController {
     var dateFormatter = NSDateFormatter()
     var currentSpeed = 0
 
+    
     //
     // MARK: View Lifecycle
     //
@@ -54,32 +65,123 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    //
+    // MARK: Navigation
+    //
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "DestinationSegue" {
+            let destinationVC = segue.destinationViewController as? DestinationViewController
+            destinationVC?.delegate = self
+        }
+    }
+    
 
     //
     // MARK: Button Actions
     //
     
     @IBAction func travelBack(sender: UIButton) {
+        timerOperations(.Start, interval: 0.1, selector: #selector(ViewController.increaseSpeed))
     }
     
+    func increaseSpeed() {
+        switch currentSpeed {
+        case 0..<88:
+            currentSpeed += 1
+            setSpeedLabel(currentSpeed)
+            
+        case 88:
+            timerOperations(.Stop, interval: nil, selector: nil)
+            view.backgroundColor = UIColor.whiteColor()
+            setDateLabels(.DepartedTime, date: presentTimeLabel.text!)
+            setDateLabels(.PresentTime, date: destinationTimeLabel.text!)
+            timerOperations(.Start, interval: 0.2, selector: #selector(ViewController.decreaseSpeed))
+            
+        default:
+            break
+        }
+    }
+    
+    func decreaseSpeed() {
+        if currentSpeed == 88 {
+            view.backgroundColor = UIColor(red: (54/255.0), green: (54/255.0), blue: (54/255.0), alpha: 1.0)
+        }
+        
+        switch currentSpeed {
+        case 2...88:
+            currentSpeed -= 2
+            setSpeedLabel(currentSpeed)
+            
+        case 0:
+            timerOperations(.Stop, interval: nil, selector: nil)
+            
+        default:
+            break
+        }
+    }
+    
+    
     //
-    // MARK: Utilities
+    // MARK: Time Functions
+    //
+    
+    func timerOperations(operation: TimerOperations, interval: Double?, selector: Selector?) {
+        switch operation {
+        case .Start:
+            speedometer = NSTimer.scheduledTimerWithTimeInterval(interval!, target: self, selector: selector!, userInfo: nil, repeats: true)
+            
+        case .Stop:
+            speedometer.invalidate()
+        }
+    }
+    
+    
+    //
+    // MARK: Label Utilities
     //
     
     func setDateLabels(label: DateLabels, date: String) {
         switch label {
         case .DestinationTime:
             destinationTimeLabel.text = date
+            
         case .PresentTime:
             presentTimeLabel.text = date
+            
         case .DepartedTime:
-            destinationTimeLabel.text = date
+            departedTimeLabel.text = date
         }
     }
     
     func setSpeedLabel(speed: Int) {
         currentSpeedLabel.text = "\(speed) MPH"
     }
+    
+    
+    //
+    // MARK: DestinationDateSelectionDelegate
+    //
+    
+    func selectedDestinationDate(date: NSDate) {
+        setDateLabels(.DestinationTime, date: dateFormatter.stringFromDate(date))
+        
+        let dateResult: NSComparisonResult = (dateFormatter.dateFromString(presentTimeLabel.text!)?.compare(date))!
+        
+        switch dateResult {
+        case NSComparisonResult.OrderedSame:
+            travelBackButton.enabled = false
+            
+        case NSComparisonResult.OrderedAscending:
+            travelBackButton.setTitle("TRAVEL FORWARD", forState: UIControlState.Normal)
+            travelBackButton.enabled = true
+            
+        case NSComparisonResult.OrderedDescending:
+            travelBackButton.setTitle("TRAVEL BACK", forState: UIControlState.Normal)
+            travelBackButton.enabled = true
+        }
+    }
 
 }
-
