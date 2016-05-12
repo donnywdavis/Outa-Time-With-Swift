@@ -8,6 +8,10 @@
 
 import UIKit
 
+//
+// MARK: enums
+//
+
 enum DateLabels {
     case DestinationTime
     case PresentTime
@@ -19,10 +23,6 @@ enum TimerOperations {
     case Stop
 }
 
-enum SpeedDirection {
-    case Increase
-    case Decrease
-}
 
 class ViewController: UIViewController, DestinationDateSelectionDelegate {
     
@@ -131,7 +131,10 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     func timerOperations(operation: TimerOperations, interval: Double?, selector: Selector?) {
         switch operation {
         case .Start:
-            speedometer = NSTimer.scheduledTimerWithTimeInterval(interval!, target: self, selector: selector!, userInfo: nil, repeats: true)
+            guard let interval = interval, let selector = selector else {
+                return
+            }
+            speedometer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: selector, userInfo: nil, repeats: true)
             
         case .Stop:
             speedometer.invalidate()

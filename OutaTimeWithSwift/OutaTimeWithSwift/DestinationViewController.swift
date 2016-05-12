@@ -41,7 +41,10 @@ class DestinationViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.selectedDestinationDate(destinationDatePicker.date)
+        
+        if let delegate = delegate {
+            delegate.selectedDestinationDate(destinationDatePicker.date)
+        }
     }
 
 }
