@@ -124,7 +124,8 @@
                         <outlet property="departedTimeLabel" destination="dxy-Ng-vxn" id="gSL-Fl-CTj"/>
                         <outlet property="destinationTimeLabel" destination="voV-Qy-YmT" id="laW-xZ-V8K"/>
                         <outlet property="presentTimeLabel" destination="tOI-7u-OQl" id="3mC-Ee-6qn"/>
-                        <outlet property="setDestinationButton" destination="zFo-bY-a87" id="DdR-Bs-1ZT"/>
+                        <outlet property="setDestinationButton" destination="7mI-CW-6US" id="FKu-4U-bMu"/>
+                        <outlet property="travelBackButton" destination="zFo-bY-a87" id="zeu-hn-BcG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -149,7 +150,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-CG-QcL">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-CG-QcL">
                                 <rect key="frame" x="140" y="109" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="484768052.24586499">
                                     <!--2016-05-12 17:47:32 +0000-->
