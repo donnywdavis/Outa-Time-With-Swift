@@ -92,7 +92,7 @@
                                     <color key="titleColor" red="0.039215686270000001" green="1" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="3x1-cI-oQu" kind="show" identifier="DestinationSegue" id="1zk-i8-KFf"/>
+                                    <segue destination="3x1-cI-oQu" kind="show" identifier="DestinationSegue" id="V36-4R-3JB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFo-bY-a87">
@@ -173,7 +173,7 @@
             </objects>
             <point key="canvasLocation" x="1109" y="1047"/>
         </scene>
-        <!--Destination View Controller-->
+        <!--Destination Date-->
         <scene sceneID="hpR-Ok-oFA">
             <objects>
                 <viewController id="3x1-cI-oQu" customClass="DestinationViewController" customModule="OutaTimeWithSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -190,10 +190,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                </variation>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-CG-QcL">
                                 <rect key="frame" x="140" y="109" width="320" height="216"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="b0S-kZ-aGV"/>
+                                    <constraint firstAttribute="width" constant="260" id="gwD-6C-9fy"/>
+                                </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="484768052.24586499">
                                     <!--2016-05-12 17:47:32 +0000-->
                                 </date>
@@ -202,21 +209,52 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="b0S-kZ-aGV"/>
+                                        <exclude reference="gwD-6C-9fy"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="b0S-kZ-aGV"/>
+                                        <include reference="gwD-6C-9fy"/>
+                                    </mask>
+                                </variation>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select an important date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJ2-ug-XfW">
-                                <rect key="frame" x="169" y="335" width="262" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4dc-YG-EaQ">
                                 <rect key="frame" x="140" y="372" width="320" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="RNq-Hc-TEi"/>
+                                    <constraint firstAttribute="width" constant="260" id="hfT-2D-npR"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="RNq-Hc-TEi"/>
+                                        <exclude reference="hfT-2D-npR"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="RNq-Hc-TEi"/>
+                                        <include reference="hfT-2D-npR"/>
+                                    </mask>
+                                </variation>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select an important date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJ2-ug-XfW">
+                                <rect key="frame" x="169" y="335" width="262" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -225,11 +263,40 @@
                             <constraint firstItem="iJ2-ug-XfW" firstAttribute="top" secondItem="Usf-CG-QcL" secondAttribute="bottom" constant="10" id="8eW-cp-aZB"/>
                             <constraint firstItem="SST-dh-d7x" firstAttribute="top" secondItem="arM-KO-ycV" secondAttribute="bottom" constant="8" id="Iz6-Uh-S2e"/>
                             <constraint firstItem="iJ2-ug-XfW" firstAttribute="centerX" secondItem="Usf-CG-QcL" secondAttribute="centerX" id="f2P-jH-hiC"/>
+                            <constraint firstItem="SST-dh-d7x" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" constant="-149.5" id="flo-X0-7Qb"/>
                             <constraint firstItem="Usf-CG-QcL" firstAttribute="top" secondItem="SST-dh-d7x" secondAttribute="bottom" constant="8" id="g4L-Jc-uKk"/>
+                            <constraint firstItem="iJ2-ug-XfW" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" constant="150" id="gVK-AH-CN3"/>
+                            <constraint firstItem="iJ2-ug-XfW" firstAttribute="top" secondItem="arM-KO-ycV" secondAttribute="bottom" constant="8" id="nbo-6w-0uj"/>
                             <constraint firstItem="Usf-CG-QcL" firstAttribute="centerX" secondItem="SST-dh-d7x" secondAttribute="centerX" id="nt5-AA-kOK"/>
                             <constraint firstItem="4dc-YG-EaQ" firstAttribute="top" secondItem="iJ2-ug-XfW" secondAttribute="bottom" constant="8" id="oys-g4-iZP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="flo-X0-7Qb"/>
+                                <exclude reference="gVK-AH-CN3"/>
+                                <exclude reference="nbo-6w-0uj"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="7vF-GM-dyq"/>
+                                <include reference="flo-X0-7Qb"/>
+                                <exclude reference="8eW-cp-aZB"/>
+                                <exclude reference="f2P-jH-hiC"/>
+                                <include reference="gVK-AH-CN3"/>
+                                <include reference="nbo-6w-0uj"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Destination Date" id="ft3-n1-Xua">
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="h4c-cl-330">
+                            <connections>
+                                <segue destination="5uz-92-y5t" kind="popoverPresentation" popoverAnchorBarButtonItem="h4c-cl-330" id="tM5-hz-lCw">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="destinationDatePicker" destination="Usf-CG-QcL" id="grl-fe-UGQ"/>
                         <outlet property="importantDatePicker" destination="4dc-YG-EaQ" id="qXC-nk-Bha"/>
@@ -237,7 +304,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enV-AY-8ay" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1846" y="1047"/>
+            <point key="canvasLocation" x="1876" y="1047"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="9lQ-5N-EGD">
+            <objects>
+                <tableViewController id="eHt-aB-rUf" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FI8-h6-VOZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="HistoryCell" textLabel="L5S-bB-3UL" style="IBUITableViewCellStyleDefault" id="Wc2-6z-xyq">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wc2-6z-xyq" id="s8A-qY-jOi">
+                                    <rect key="frame" x="0.0" y="0.0" width="561" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L5S-bB-3UL">
+                                            <rect key="frame" x="15" y="0.0" width="546" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eHt-aB-rUf" id="NTr-Ej-EG7"/>
+                            <outlet property="delegate" destination="eHt-aB-rUf" id="qZM-hK-5Pe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="History" id="rYL-5x-7VM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="bPM-tE-YLI"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b9H-Be-mqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3435" y="1047"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uyG-3y-vaf">
@@ -256,6 +363,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t8X-Tr-9ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="330" y="1047"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XwS-rN-kjU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5uz-92-y5t" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="urZ-2k-4gP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eHt-aB-rUf" kind="relationship" relationship="rootViewController" id="SwP-SF-7hN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rVo-i2-12F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2663" y="1047"/>
         </scene>
     </scenes>
 </document>

@@ -45,8 +45,6 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Destination Date"
-        
         importantDatePicker.delegate = self
         importantDatePicker.dataSource = self
 
