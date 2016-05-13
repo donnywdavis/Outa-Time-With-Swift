@@ -60,6 +60,10 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         super.viewWillDisappear(animated)
         
         if let delegate = delegate {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            if !appDelegate.historyArray.contains(destinationDatePicker.date) {
+                appDelegate.historyArray.append(destinationDatePicker.date)
+            }
             delegate.selectedDestinationDate(destinationDatePicker.date)
         }
     }
