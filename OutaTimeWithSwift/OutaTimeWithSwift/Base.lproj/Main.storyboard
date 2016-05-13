@@ -291,7 +291,7 @@
                     <navigationItem key="navigationItem" title="Destination Date" id="ft3-n1-Xua">
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="h4c-cl-330">
                             <connections>
-                                <segue destination="5uz-92-y5t" kind="popoverPresentation" popoverAnchorBarButtonItem="h4c-cl-330" id="tM5-hz-lCw">
+                                <segue destination="5uz-92-y5t" kind="popoverPresentation" identifier="HistoryPopoverSegue" popoverAnchorBarButtonItem="h4c-cl-330" id="tM5-hz-lCw">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
