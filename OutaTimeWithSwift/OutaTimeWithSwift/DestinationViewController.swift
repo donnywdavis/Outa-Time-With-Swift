@@ -106,6 +106,24 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        destinationDatePicker.setDate(dateFormatter.dateFromString(appDelegate.historyArray[indexPath.row])!, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            appDelegate.historyArray.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
     
     //
     // MARK: UITableViewDelegate
