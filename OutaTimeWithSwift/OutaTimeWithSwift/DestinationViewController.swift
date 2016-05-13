@@ -24,7 +24,7 @@ protocol DestinationDateSelectionDelegate: class {
 //    static var count: Int = {return ImportantDates.StarWarsRelease.hashValue + 1}()
 //}
 
-class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate {
     
     //
     // MARK: Properties
@@ -32,9 +32,13 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBOutlet weak var destinationDatePicker: UIDatePicker!
     @IBOutlet weak var importantDatePicker: UIPickerView!
+    @IBOutlet weak var importantDatesView: UIView!
+    @IBOutlet weak var historyView: UIView!
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     weak var delegate: DestinationDateSelectionDelegate?
     
+    let segmentsArray = ["ImportantDatesSegment", "HistorySegment"]
     let importantDatesArray = ["", "07041776", "11221963", "07201969", "05251977", "07031985", "11121955"]
     let importantDatesLabelArray = ["Custom", "Declaration of Independence", "Kennedy Assassination", "Moon Landing", "Star Wars Release", "Back to the Future Release", "Flux Capacitor Created"]
 
@@ -47,8 +51,11 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         importantDatePicker.delegate = self
         importantDatePicker.dataSource = self
+        
+        historyView.hidden = true
+        importantDatesView.hidden = false
 
-//        destinationDatePicker.performSelector(Selector("setHighlightsToday:"), withObject:UIColor.whiteColor())
+//        importantDatePicker.performSelector(#selector("setHighlightsToday:"), withObject:UIColor.whiteColor())
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,13 +67,49 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         super.viewWillDisappear(animated)
         
         if let delegate = delegate {
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            if !appDelegate.historyArray.contains(destinationDatePicker.date) {
-                appDelegate.historyArray.append(destinationDatePicker.date)
-            }
             delegate.selectedDestinationDate(destinationDatePicker.date)
         }
     }
+    
+    //
+    // MARK: Segmented Control Actions
+    //
+    
+    @IBAction func segmentActions(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            historyView.hidden = true
+            importantDatesView.hidden = false
+        case 1:
+            historyView.hidden = false
+            importantDatesView.hidden = true
+        default:
+            break
+        }
+        
+    }
+    
+    
+    //
+    // MARK: UITableViewDataSource
+    //
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return appDelegate.historyArray.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell", forIndexPath: indexPath)
+        
+        cell.textLabel?.text = appDelegate.historyArray[indexPath.row]
+        
+        return cell
+    }
+    
+    
+    //
+    // MARK: UITableViewDelegate
+    //
     
     
     //

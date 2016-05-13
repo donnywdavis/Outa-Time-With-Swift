@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		411199751CE56F2C00BB6BF7 /* DestinationHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411199741CE56F2C00BB6BF7 /* DestinationHistoryTableViewController.swift */; };
 		418D79891CE4EE5400A00CCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418D79881CE4EE5400A00CCC /* AppDelegate.swift */; };
 		418D798B1CE4EE5400A00CCC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418D798A1CE4EE5400A00CCC /* ViewController.swift */; };
 		418D798E1CE4EE5400A00CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418D798C1CE4EE5400A00CCC /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		411199741CE56F2C00BB6BF7 /* DestinationHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationHistoryTableViewController.swift; sourceTree = "<group>"; };
 		418D79851CE4EE5400A00CCC /* OutaTimeWithSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutaTimeWithSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		418D79881CE4EE5400A00CCC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		418D798A1CE4EE5400A00CCC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 			children = (
 				418D798A1CE4EE5400A00CCC /* ViewController.swift */,
 				418D799F1CE4FA8800A00CCC /* DestinationViewController.swift */,
-				411199741CE56F2C00BB6BF7 /* DestinationHistoryTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -171,7 +168,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				418D798B1CE4EE5400A00CCC /* ViewController.swift in Sources */,
-				411199751CE56F2C00BB6BF7 /* DestinationHistoryTableViewController.swift in Sources */,
 				418D79A01CE4FA8800A00CCC /* DestinationViewController.swift in Sources */,
 				418D79891CE4EE5400A00CCC /* AppDelegate.swift in Sources */,
 			);

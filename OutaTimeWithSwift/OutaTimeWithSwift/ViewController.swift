@@ -37,6 +37,7 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     @IBOutlet weak var setDestinationButton: UIButton!
     @IBOutlet weak var travelBackButton: UIButton!
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var speedometer = NSTimer()
     var dateFormatter = NSDateFormatter()
     var currentSpeed = 0
@@ -84,6 +85,10 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     @IBAction func travelBack(sender: UIButton) {
+        if !appDelegate.historyArray.contains(dateFormatter.stringFromDate(date)) {
+            appDelegate.historyArray.append(dateFormatter.stringFromDate(date))
+        }
+        
         timerOperations(.Start, interval: 0.1, selector: #selector(ViewController.increaseSpeed))
     }
     
