@@ -24,23 +24,23 @@ protocol DestinationDateSelectionDelegate: class {
 //    static var count: Int = {return ImportantDates.StarWarsRelease.hashValue + 1}()
 //}
 
-class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate {
+class DestinationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //
     // MARK: Properties
     //
     
     @IBOutlet weak var destinationDatePicker: UIDatePicker!
-    @IBOutlet weak var importantDatePicker: UIPickerView!
-    @IBOutlet weak var importantDatesView: UIView!
-    @IBOutlet weak var historyView: UIView!
+    @IBOutlet weak var customDateView: UIView!
+    @IBOutlet weak var datesTableView: UIView!
+    @IBOutlet weak var dateSelectionSegmentControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     weak var delegate: DestinationDateSelectionDelegate?
     
-    let segmentsArray = ["ImportantDatesSegment", "HistorySegment"]
-    let importantDatesArray = ["", "07041776", "11221963", "07201969", "05251977", "07031985", "11121955"]
-    let importantDatesLabelArray = ["Custom", "Declaration of Independence", "Kennedy Assassination", "Moon Landing", "Star Wars Release", "Back to the Future Release", "Flux Capacitor Created"]
+    var importantDatesArray = Date.loadImportantDates()
+    
 
     //
     // MARK: View Lifecycle
@@ -49,13 +49,11 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        importantDatePicker.delegate = self
-        importantDatePicker.dataSource = self
+        customDateView.hidden = false
+        datesTableView.hidden = true
         
-        historyView.hidden = true
-        importantDatesView.hidden = false
+        tableView.tableFooterView = UIView(frame: CGRectZero)
 
-//        importantDatePicker.performSelector(#selector("setHighlightsToday:"), withObject:UIColor.whiteColor())
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,13 +61,21 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    
+    //
+    // MARK: Button Actions
+    //
+    
+    @IBAction func letsGoAction(sender: UIButton) {
+        callDelegate(destinationDatePicker.date)
+    }
+    
+    func callDelegate(date: NSDate) {
         if let delegate = delegate {
-            delegate.selectedDestinationDate(destinationDatePicker.date)
+            delegate.selectedDestinationDate(date)
         }
     }
+    
     
     //
     // MARK: Segmented Control Actions
@@ -78,11 +84,12 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBAction func segmentActions(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            historyView.hidden = true
-            importantDatesView.hidden = false
-        case 1:
-            historyView.hidden = false
-            importantDatesView.hidden = true
+            customDateView.hidden = false
+            datesTableView.hidden = true
+        case 1, 2:
+            customDateView.hidden = true
+            datesTableView.hidden = false
+            tableView.reloadData()
         default:
             break
         }
@@ -94,70 +101,101 @@ class DestinationViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: UITableViewDataSource
     //
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        tableView.backgroundView = .None
+        let noDatesLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height))
+        noDatesLabel.text = "No Dates To Select Yet"
+        noDatesLabel.textAlignment = .Center
+        noDatesLabel.textColor = UIColor.whiteColor()
+        noDatesLabel.sizeToFit()
+        
+        switch dateSelectionSegmentControl.selectedSegmentIndex {
+        case 1:
+            if appDelegate.historyArray.count == 0 {
+                tableView.backgroundView = noDatesLabel
+                tableView.separatorStyle = .None
+                return 0
+            }
+        case 2:
+            if let arrayCount = importantDatesArray?.count where arrayCount == 0 {
+                tableView.backgroundView = noDatesLabel
+                tableView.separatorStyle = .None
+                return 0
+            }
+        default:
+            break
+        }
+        
+        return 1
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appDelegate.historyArray.count
+        switch dateSelectionSegmentControl.selectedSegmentIndex {
+        case 1:
+            return appDelegate.historyArray.count
+        case 2:
+            if let rowCount = importantDatesArray?.count {
+                return rowCount
+            } else {
+                return 0
+            }
+        default:
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("DateCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = appDelegate.historyArray[indexPath.row]
+        switch dateSelectionSegmentControl.selectedSegmentIndex {
+        case 1:
+            cell.textLabel?.text = appDelegate.historyArray[indexPath.row]
+            cell.detailTextLabel?.text = ""
+        case 2:
+            if let importantDate = importantDatesArray?[indexPath.row] {
+                cell.textLabel?.text = importantDate.title
+                cell.detailTextLabel?.text = Date.convertDateToString(importantDate.date!, style: .MediumStyle)
+            }
+        default:
+            cell.textLabel?.text = ""
+            cell.detailTextLabel?.text = ""
+        }
         
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .MediumStyle
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        destinationDatePicker.setDate(dateFormatter.dateFromString(appDelegate.historyArray[indexPath.row])!, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            appDelegate.historyArray.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        
+        switch dateSelectionSegmentControl.selectedSegmentIndex {
+        case 1:
+            dateFormatter.dateStyle = .MediumStyle
+            callDelegate(dateFormatter.dateFromString(appDelegate.historyArray[indexPath.row])!)
+        case 2:
+            if let importantDate = importantDatesArray?[indexPath.row] {
+                callDelegate(importantDate.date!)
+            }
+        default:
+            return
         }
     }
     
-    
-    //
-    // MARK: UITableViewDelegate
-    //
-    
-    
-    //
-    // MARK: UIPickerViewDataSource
-    //
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        switch dateSelectionSegmentControl.selectedSegmentIndex {
+        case 1:
+            return true
+        default:
+            return false
+        }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return importantDatesLabelArray.count
-    }
-    
-    
-    //
-    // MARK: UIPickerViewDelegate
-    //
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return importantDatesLabelArray[row]
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMddyyyy"
-        if importantDatesArray[row] == "" {
-            destinationDatePicker.setDate(NSDate(), animated: true)
-        } else {
-            destinationDatePicker.setDate(dateFormatter.dateFromString(importantDatesArray[row])!, animated: true)
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if dateSelectionSegmentControl.selectedSegmentIndex == 1 {
+            if editingStyle == UITableViewCellEditingStyle.Delete {
+                appDelegate.historyArray.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            }
         }
     }
 

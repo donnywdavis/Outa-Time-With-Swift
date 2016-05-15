@@ -174,6 +174,7 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     func selectedDestinationDate(date: NSDate) {
+        navigationController?.popViewControllerAnimated(true)
         setDateLabels(.DestinationTime, date: dateFormatter.stringFromDate(date))
         
         let dateResult: NSComparisonResult = (dateFormatter.dateFromString(presentTimeLabel.text!)?.compare(date))!
