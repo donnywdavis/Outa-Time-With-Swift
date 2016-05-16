@@ -25,7 +25,6 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var dateSelectionSegmentControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     weak var delegate: DestinationDateSelectionDelegate?
     
     var importantDatesArray = Date.loadImportantDates()

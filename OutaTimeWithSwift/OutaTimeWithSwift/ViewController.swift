@@ -12,12 +12,6 @@ import UIKit
 // MARK: enums
 //
 
-enum DateLabels {
-    case DestinationTime
-    case PresentTime
-    case DepartedTime
-}
-
 enum TimerOperations {
     case Start
     case Stop
@@ -37,10 +31,22 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     @IBOutlet weak var setDestinationButton: UIButton!
     @IBOutlet weak var travelBackButton: UIButton!
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var speedometer = NSTimer()
-    var dateFormatter = NSDateFormatter()
-    var currentSpeed = 0
+    
+    var currentSpeed: Int? {
+        willSet {
+            if let value = newValue {
+                currentSpeedLabel.text = "\(value) MPH"
+                
+                if value == 88 {
+                    departedTimeLabel.text = presentTimeLabel.text!
+                    presentTimeLabel.text = destinationTimeLabel.text!
+                }
+            } else {
+                currentSpeedLabel.text = "0 MPH"
+            }
+        }
+    }
 
     
     //
@@ -50,14 +56,11 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.dateStyle = .MediumStyle
-        
-        setDateLabels(.DestinationTime, date: "--- -- ----")
-        setDateLabels(.PresentTime, date: dateFormatter.stringFromDate(NSDate()))
-        setDateLabels(.DepartedTime, date: "--- -- ----")
+        destinationTimeLabel.text = "--- -- ----"
+        departedTimeLabel.text = "--- -- ----"
+        presentTimeLabel.text = NSDate().convertToStringWithStyle(Date.dateFormatter, style: .MediumStyle)
         
         currentSpeed = 0
-        setSpeedLabel(currentSpeed)
         
         travelBackButton.enabled = false
     }
@@ -85,7 +88,7 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     @IBAction func travelBack(sender: UIButton) {
-        if let newHistoryDate = Date(title: "", date: destinationTimeLabel.text?.convertToDateWithFormat(dateFormatter, format: "MMM dd, yyyy")) {
+        if let newHistoryDate = Date(title: "", date: destinationTimeLabel.text?.convertToDateWithFormat(Date.dateFormatter, format: "MMM dd, yyyy")) {
             Date.addHistoryDate(newHistoryDate)
         }
         
@@ -93,17 +96,14 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     }
     
     func increaseSpeed() {
-        switch currentSpeed {
+        switch currentSpeed! {
         case 0..<88:
-            currentSpeed += 1
-            setSpeedLabel(currentSpeed)
+            currentSpeed! += 1
             
         case 88:
             timerOperations(.Stop, interval: nil, selector: nil)
             view.backgroundColor = UIColor.whiteColor()
-            setDateLabels(.DepartedTime, date: presentTimeLabel.text!)
-            setDateLabels(.PresentTime, date: destinationTimeLabel.text!)
-            timerOperations(.Start, interval: 0.2, selector: #selector(ViewController.decreaseSpeed))
+            timerOperations(.Start, interval: 0.3, selector: #selector(ViewController.decreaseSpeed))
             
         default:
             break
@@ -111,14 +111,13 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     }
     
     func decreaseSpeed() {
-        if currentSpeed == 88 {
+        if currentSpeed! == 88 {
             view.backgroundColor = UIColor(red: (54/255.0), green: (54/255.0), blue: (54/255.0), alpha: 1.0)
         }
         
-        switch currentSpeed {
+        switch currentSpeed! {
         case 2...88:
-            currentSpeed -= 2
-            setSpeedLabel(currentSpeed)
+            currentSpeed! -= 2
             
         case 0:
             timerOperations(.Stop, interval: nil, selector: nil)
@@ -148,36 +147,14 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     
     
     //
-    // MARK: Label Utilities
-    //
-    
-    func setDateLabels(label: DateLabels, date: String) {
-        switch label {
-        case .DestinationTime:
-            destinationTimeLabel.text = date
-            
-        case .PresentTime:
-            presentTimeLabel.text = date
-            
-        case .DepartedTime:
-            departedTimeLabel.text = date
-        }
-    }
-    
-    func setSpeedLabel(speed: Int) {
-        currentSpeedLabel.text = "\(speed) MPH"
-    }
-    
-    
-    //
     // MARK: DestinationDateSelectionDelegate
     //
     
     func selectedDestinationDate(date: NSDate) {
         navigationController?.popViewControllerAnimated(true)
-        setDateLabels(.DestinationTime, date: date.convertToStringWithStyle(dateFormatter, style: .MediumStyle))
+        destinationTimeLabel.text = date.convertToStringWithStyle(Date.dateFormatter, style: .MediumStyle)
         
-        if let dateResult = presentTimeLabel.text?.convertToDateWithFormat(dateFormatter, format: "MMM dd, yyyy")?.compare(date) {
+        if let dateResult = presentTimeLabel.text?.convertToDateWithFormat(Date.dateFormatter, format: "MMM dd, yyyy")?.compare(date) {
             switch dateResult {
             case NSComparisonResult.OrderedSame:
                 travelBackButton.enabled = false
