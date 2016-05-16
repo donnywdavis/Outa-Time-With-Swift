@@ -173,73 +173,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select date to travel to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SST-dh-d7x">
-                                <rect key="frame" x="180" y="72" width="240" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                </variation>
-                            </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-CG-QcL">
-                                <rect key="frame" x="140" y="109" width="320" height="216"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="b0S-kZ-aGV"/>
-                                    <constraint firstAttribute="width" constant="260" id="gwD-6C-9fy"/>
-                                </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="484768052.24586499">
-                                    <!--2016-05-12 17:47:32 +0000-->
-                                </date>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="b0S-kZ-aGV"/>
-                                        <exclude reference="gwD-6C-9fy"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="b0S-kZ-aGV"/>
-                                        <include reference="gwD-6C-9fy"/>
-                                    </mask>
-                                </variation>
-                            </datePicker>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gyM-Q6-Lku">
-                                <rect key="frame" x="188" y="333" width="225" height="29"/>
-                                <segments>
-                                    <segment title="Important Dates"/>
-                                    <segment title="History"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="segmentActions:" destination="3x1-cI-oQu" eventType="valueChanged" id="st3-wW-hbY"/>
-                                </connections>
-                            </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuO-b4-BSW">
-                                <rect key="frame" x="0.0" y="369" width="600" height="216"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdU-Gb-gSG">
+                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D6G-kf-pet">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="216"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a date to travel to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SST-dh-d7x">
+                                        <rect key="frame" x="171" y="8" width="258" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        </variation>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Usf-CG-QcL">
+                                        <rect key="frame" x="140" y="45" width="320" height="216"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="484768052.24586499">
+                                            <!--2016-05-12 17:47:32 +0000-->
+                                        </date>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-OP-6e2">
+                                        <rect key="frame" x="263" y="276" width="74" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Let's Go">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="letsGoAction:" destination="3x1-cI-oQu" eventType="touchUpInside" id="Iea-80-Hq8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Usf-CG-QcL" firstAttribute="top" secondItem="SST-dh-d7x" secondAttribute="bottom" constant="8" id="0CF-4R-2py"/>
+                                    <constraint firstItem="mgh-OP-6e2" firstAttribute="top" secondItem="Usf-CG-QcL" secondAttribute="bottom" constant="15" id="Gq1-xx-Erw"/>
+                                    <constraint firstItem="mgh-OP-6e2" firstAttribute="centerX" secondItem="Usf-CG-QcL" secondAttribute="centerX" id="Oy6-B9-HML"/>
+                                    <constraint firstItem="Usf-CG-QcL" firstAttribute="centerX" secondItem="mdU-Gb-gSG" secondAttribute="centerX" id="fQb-7f-mLN"/>
+                                    <constraint firstItem="SST-dh-d7x" firstAttribute="centerX" secondItem="mdU-Gb-gSG" secondAttribute="centerX" id="rhs-2C-0N1"/>
+                                    <constraint firstItem="SST-dh-d7x" firstAttribute="top" secondItem="mdU-Gb-gSG" secondAttribute="top" constant="8" id="tII-d7-wCx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuO-b4-BSW">
+                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D6G-kf-pet">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="491"/>
+                                        <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="separatorColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryCell" textLabel="2xs-82-vNe" style="IBUITableViewCellStyleDefault" id="WSl-4E-xrj">
-                                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DateCell" textLabel="2xs-82-vNe" detailTextLabel="8MF-3M-WS4" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="WSl-4E-xrj">
+                                                <rect key="frame" x="0.0" y="28" width="600" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WSl-4E-xrj" id="6aw-34-RMT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2xs-82-vNe">
-                                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                            <rect key="frame" x="15" y="11" width="31.5" height="19.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8MF-3M-WS4">
+                                                            <rect key="frame" x="15" y="30.5" width="30.5" height="13.5"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="1" alpha="0.70287566489361697" colorSpace="calibratedWhite"/>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -249,114 +260,46 @@
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="D6G-kf-pet" firstAttribute="width" secondItem="AuO-b4-BSW" secondAttribute="width" id="HSp-vB-cmw"/>
-                                    <constraint firstItem="D6G-kf-pet" firstAttribute="centerY" secondItem="AuO-b4-BSW" secondAttribute="centerY" id="KLb-10-nBR"/>
-                                    <constraint firstItem="D6G-kf-pet" firstAttribute="height" secondItem="AuO-b4-BSW" secondAttribute="height" id="Ota-r4-gTt"/>
-                                    <constraint firstItem="D6G-kf-pet" firstAttribute="centerX" secondItem="AuO-b4-BSW" secondAttribute="centerX" id="XRx-Ib-8uh"/>
-                                    <constraint firstAttribute="height" constant="216" id="gQl-3H-afO"/>
-                                    <constraint firstAttribute="width" constant="260" id="kQG-LB-8D4"/>
+                                    <constraint firstItem="D6G-kf-pet" firstAttribute="top" secondItem="AuO-b4-BSW" secondAttribute="top" id="18a-2W-ykn"/>
+                                    <constraint firstAttribute="bottom" secondItem="D6G-kf-pet" secondAttribute="bottom" id="POZ-6V-iee"/>
+                                    <constraint firstItem="D6G-kf-pet" firstAttribute="leading" secondItem="AuO-b4-BSW" secondAttribute="leading" id="ZX8-ZT-jBJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="D6G-kf-pet" secondAttribute="trailing" id="oyN-Cj-YDd"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="gQl-3H-afO"/>
-                                        <exclude reference="kQG-LB-8D4"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="gQl-3H-afO"/>
-                                        <include reference="kQG-LB-8D4"/>
-                                    </mask>
-                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKm-j2-c0T">
-                                <rect key="frame" x="0.0" y="369" width="600" height="216"/>
-                                <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32u-7g-i2i">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="216"/>
-                                    </pickerView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="32u-7g-i2i" firstAttribute="centerX" secondItem="OKm-j2-c0T" secondAttribute="centerX" id="0Gv-lg-npf"/>
-                                    <constraint firstItem="32u-7g-i2i" firstAttribute="height" secondItem="OKm-j2-c0T" secondAttribute="height" id="6JZ-p4-qqP"/>
-                                    <constraint firstItem="32u-7g-i2i" firstAttribute="centerY" secondItem="OKm-j2-c0T" secondAttribute="centerY" id="6i2-Lh-rzc"/>
-                                    <constraint firstAttribute="height" constant="216" id="6nX-Nx-OAa"/>
-                                    <constraint firstAttribute="width" constant="260" id="d7Y-yh-cFD"/>
-                                    <constraint firstItem="32u-7g-i2i" firstAttribute="width" secondItem="OKm-j2-c0T" secondAttribute="width" id="y5b-Me-zLA"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="6nX-Nx-OAa"/>
-                                        <exclude reference="d7Y-yh-cFD"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="6nX-Nx-OAa"/>
-                                        <include reference="d7Y-yh-cFD"/>
-                                    </mask>
-                                </variation>
-                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gyM-Q6-Lku">
+                                <rect key="frame" x="131" y="72" width="338" height="29"/>
+                                <segments>
+                                    <segment title="Custom"/>
+                                    <segment title="History"/>
+                                    <segment title="Important Dates"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentActions:" destination="3x1-cI-oQu" eventType="valueChanged" id="st3-wW-hbY"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="AuO-b4-BSW" firstAttribute="width" secondItem="6Pj-t7-JIi" secondAttribute="width" id="4lP-1y-TSa"/>
-                            <constraint firstItem="OKm-j2-c0T" firstAttribute="top" secondItem="gyM-Q6-Lku" secondAttribute="bottom" constant="8" id="5N8-S6-hTT"/>
-                            <constraint firstItem="SST-dh-d7x" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" id="7vF-GM-dyq"/>
-                            <constraint firstItem="SST-dh-d7x" firstAttribute="top" secondItem="arM-KO-ycV" secondAttribute="bottom" constant="8" id="Iz6-Uh-S2e"/>
-                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="top" secondItem="Usf-CG-QcL" secondAttribute="bottom" constant="8" id="Mal-BX-IeW"/>
-                            <constraint firstItem="AuO-b4-BSW" firstAttribute="centerX" secondItem="gyM-Q6-Lku" secondAttribute="centerX" id="b1f-R5-iit"/>
-                            <constraint firstItem="1xp-te-4Xl" firstAttribute="top" secondItem="OKm-j2-c0T" secondAttribute="bottom" constant="15" id="dvz-ky-5aR"/>
-                            <constraint firstItem="SST-dh-d7x" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" constant="-149.5" id="flo-X0-7Qb"/>
-                            <constraint firstItem="Usf-CG-QcL" firstAttribute="top" secondItem="SST-dh-d7x" secondAttribute="bottom" constant="8" id="g4L-Jc-uKk">
-                                <variation key="heightClass=compact" constant="17"/>
-                            </constraint>
-                            <constraint firstItem="AuO-b4-BSW" firstAttribute="top" secondItem="gyM-Q6-Lku" secondAttribute="bottom" constant="8" id="hwe-LR-N5u"/>
-                            <constraint firstItem="Usf-CG-QcL" firstAttribute="centerX" secondItem="SST-dh-d7x" secondAttribute="centerX" id="nt5-AA-kOK"/>
-                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="top" secondItem="arM-KO-ycV" secondAttribute="bottom" constant="8" id="oeh-aB-Qv0"/>
-                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" constant="133.5" id="oxq-WQ-pcj"/>
-                            <constraint firstItem="1xp-te-4Xl" firstAttribute="top" secondItem="AuO-b4-BSW" secondAttribute="bottom" constant="15" id="s47-3k-I8z"/>
-                            <constraint firstItem="OKm-j2-c0T" firstAttribute="top" secondItem="Usf-CG-QcL" secondAttribute="top" id="wkm-Ua-utM"/>
-                            <constraint firstItem="OKm-j2-c0T" firstAttribute="centerX" secondItem="gyM-Q6-Lku" secondAttribute="centerX" id="wnX-ZW-5BX"/>
-                            <constraint firstItem="AuO-b4-BSW" firstAttribute="top" secondItem="Usf-CG-QcL" secondAttribute="top" id="yAU-jO-z97"/>
-                            <constraint firstItem="OKm-j2-c0T" firstAttribute="width" secondItem="6Pj-t7-JIi" secondAttribute="width" id="yH5-9N-Z5a"/>
-                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="centerX" secondItem="Usf-CG-QcL" secondAttribute="centerX" id="yZO-5Q-i2H"/>
+                            <constraint firstItem="1xp-te-4Xl" firstAttribute="top" secondItem="AuO-b4-BSW" secondAttribute="bottom" id="0Ic-4s-jXE"/>
+                            <constraint firstItem="mdU-Gb-gSG" firstAttribute="top" secondItem="gyM-Q6-Lku" secondAttribute="bottom" constant="9" id="5kt-yd-ARe"/>
+                            <constraint firstItem="AuO-b4-BSW" firstAttribute="leading" secondItem="6Pj-t7-JIi" secondAttribute="leading" id="B1v-lI-HaV"/>
+                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="centerX" secondItem="6Pj-t7-JIi" secondAttribute="centerX" id="MFC-fD-ZBO"/>
+                            <constraint firstAttribute="trailing" secondItem="mdU-Gb-gSG" secondAttribute="trailing" id="NsV-Ec-wHs"/>
+                            <constraint firstAttribute="trailing" secondItem="AuO-b4-BSW" secondAttribute="trailing" id="QJO-zv-J3n"/>
+                            <constraint firstItem="AuO-b4-BSW" firstAttribute="top" secondItem="gyM-Q6-Lku" secondAttribute="bottom" constant="9" id="T92-XS-DSy"/>
+                            <constraint firstItem="1xp-te-4Xl" firstAttribute="top" secondItem="mdU-Gb-gSG" secondAttribute="bottom" id="iwX-HX-bCS"/>
+                            <constraint firstItem="gyM-Q6-Lku" firstAttribute="top" secondItem="arM-KO-ycV" secondAttribute="bottom" constant="8" id="phH-tb-Q4t"/>
+                            <constraint firstItem="mdU-Gb-gSG" firstAttribute="leading" secondItem="6Pj-t7-JIi" secondAttribute="leading" id="rcK-Qj-vFl"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="flo-X0-7Qb"/>
-                                <exclude reference="yAU-jO-z97"/>
-                                <exclude reference="wkm-Ua-utM"/>
-                                <exclude reference="oeh-aB-Qv0"/>
-                                <exclude reference="oxq-WQ-pcj"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="7vF-GM-dyq"/>
-                                <include reference="flo-X0-7Qb"/>
-                                <exclude reference="4lP-1y-TSa"/>
-                                <exclude reference="hwe-LR-N5u"/>
-                                <include reference="yAU-jO-z97"/>
-                                <exclude reference="5N8-S6-hTT"/>
-                                <include reference="wkm-Ua-utM"/>
-                                <exclude reference="yH5-9N-Z5a"/>
-                                <exclude reference="Mal-BX-IeW"/>
-                                <include reference="oeh-aB-Qv0"/>
-                                <include reference="oxq-WQ-pcj"/>
-                                <exclude reference="yZO-5Q-i2H"/>
-                                <exclude reference="dvz-ky-5aR"/>
-                                <exclude reference="s47-3k-I8z"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Destination Date" id="ft3-n1-Xua"/>
                     <connections>
+                        <outlet property="customDateView" destination="mdU-Gb-gSG" id="x5d-3P-po6"/>
+                        <outlet property="dateSelectionSegmentControl" destination="gyM-Q6-Lku" id="77o-cf-SUb"/>
+                        <outlet property="datesTableView" destination="AuO-b4-BSW" id="KoV-P0-qjJ"/>
                         <outlet property="destinationDatePicker" destination="Usf-CG-QcL" id="grl-fe-UGQ"/>
-                        <outlet property="historyView" destination="AuO-b4-BSW" id="JDb-IE-5mB"/>
-                        <outlet property="importantDatePicker" destination="32u-7g-i2i" id="pz9-Zq-9cg"/>
-                        <outlet property="importantDatesView" destination="OKm-j2-c0T" id="1Pl-7p-kzv"/>
+                        <outlet property="tableView" destination="D6G-kf-pet" id="Igs-ZZ-pC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enV-AY-8ay" userLabel="First Responder" sceneMemberID="firstResponder"/>

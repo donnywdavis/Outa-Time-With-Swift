@@ -88,6 +88,8 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
         if !appDelegate.historyArray.contains(destinationTimeLabel.text!) {
             appDelegate.historyArray.append(destinationTimeLabel.text!)
         }
+        let newHistoryDate = Date(title: "", date: Date.convertDateFromString(destinationTimeLabel.text!, format: "MMM dd, yyyy"))
+        Date.addHistoryDate(newHistoryDate)
         
         timerOperations(.Start, interval: 0.1, selector: #selector(ViewController.increaseSpeed))
     }
@@ -174,6 +176,7 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     func selectedDestinationDate(date: NSDate) {
+        navigationController?.popViewControllerAnimated(true)
         setDateLabels(.DestinationTime, date: dateFormatter.stringFromDate(date))
         
         let dateResult: NSComparisonResult = (dateFormatter.dateFromString(presentTimeLabel.text!)?.compare(date))!
