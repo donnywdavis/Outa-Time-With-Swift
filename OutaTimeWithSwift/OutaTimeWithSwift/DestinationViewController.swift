@@ -40,6 +40,8 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     weak var delegate: DestinationDateSelectionDelegate?
     
     var importantDatesArray = Date.loadImportantDates()
+    var historyDatesArray = Date.loadHistoryDates()
+//    let historyDatesArray = [Date]?()
     
 
     //
@@ -111,7 +113,7 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
         
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
-            if appDelegate.historyArray.count == 0 {
+            if let arrayCount = historyDatesArray?.count where arrayCount == 0 {
                 tableView.backgroundView = noDatesLabel
                 tableView.separatorStyle = .None
                 return 0
@@ -132,7 +134,11 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
-            return appDelegate.historyArray.count
+            if let rowCount = historyDatesArray?.count {
+                return rowCount
+            } else {
+                return 0
+            }
         case 2:
             if let rowCount = importantDatesArray?.count {
                 return rowCount
@@ -149,12 +155,14 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
         
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
-            cell.textLabel?.text = appDelegate.historyArray[indexPath.row]
-            cell.detailTextLabel?.text = ""
+            if let historyDate = historyDatesArray?[indexPath.row] {
+                cell.textLabel?.text = Date.convertDateToStringWithStyle(historyDate.date!, style: .MediumStyle)
+                cell.detailTextLabel?.text = ""
+            }
         case 2:
             if let importantDate = importantDatesArray?[indexPath.row] {
                 cell.textLabel?.text = importantDate.title
-                cell.detailTextLabel?.text = Date.convertDateToString(importantDate.date!, style: .MediumStyle)
+                cell.detailTextLabel?.text = Date.convertDateToStringWithStyle(importantDate.date!, style: .MediumStyle)
             }
         default:
             cell.textLabel?.text = ""
@@ -165,13 +173,13 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let dateFormatter = NSDateFormatter()
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
-            dateFormatter.dateStyle = .MediumStyle
-            callDelegate(dateFormatter.dateFromString(appDelegate.historyArray[indexPath.row])!)
+            if let historyDate = historyDatesArray?[indexPath.row] {
+                callDelegate(historyDate.date!)
+            }
         case 2:
             if let importantDate = importantDatesArray?[indexPath.row] {
                 callDelegate(importantDate.date!)
