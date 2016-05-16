@@ -104,13 +104,13 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
             if let arrayCount = historyDatesArray?.count where arrayCount == 0 {
                 tableView.backgroundView = noDatesLabel
                 tableView.separatorStyle = .None
-                return 0
+//                return 0
             }
         case 2:
             if let arrayCount = importantDatesArray?.count where arrayCount == 0 {
                 tableView.backgroundView = noDatesLabel
                 tableView.separatorStyle = .None
-                return 0
+//                return 0
             }
         default:
             break
