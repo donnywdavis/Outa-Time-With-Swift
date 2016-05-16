@@ -8,9 +8,33 @@
 
 import UIKit
 
+extension NSDate {
+    func convertToStringWithFormat(dateFormatter: NSDateFormatter, format: String) -> String {
+        dateFormatter.dateFormat = format
+        return dateFormatter.stringFromDate(self)
+    }
+    
+    func convertToStringWithStyle(dateFormatter: NSDateFormatter, style:NSDateFormatterStyle) -> String {
+        dateFormatter.dateStyle = style
+        return dateFormatter.stringFromDate(self)
+    }
+}
+
+extension String {
+    func convertToDateWithFormat(dateFormatter: NSDateFormatter, format: String) -> NSDate? {
+        dateFormatter.dateFormat = format
+        guard let convertedDate = dateFormatter.dateFromString(self) else {
+            return nil
+        }
+        return convertedDate
+    }
+}
+
 class Date: NSObject {
     let title: String?
     let date: NSDate?
+    
+    static let dateFormatter = NSDateFormatter()
     
     
     //
@@ -30,7 +54,7 @@ class Date: NSObject {
             return nil
         }
         self.title = title
-        self.date = Date.convertStringToDate(date, withFormat: "MMddyyyy")
+        self.date = date.convertToDateWithFormat(Date.dateFormatter, format: "MMddyyyy")
     }
     
     
@@ -39,42 +63,14 @@ class Date: NSObject {
     //
     
     //
-    // Convert a string to a date using a specified format
-    //
-    class func convertStringToDate(date: String, withFormat format: String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = format
-        guard let convertedDate = dateFormatter.dateFromString(date) else {
-            return nil
-        }
-        return convertedDate
-    }
-    
-    //
-    // Convert a date to a string with a specified style
-    //
-    class func convertDateToString(date: NSDate, withStyle style: NSDateFormatterStyle) -> String? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = style
-        return dateFormatter.stringFromDate(date)
-    }
-    
-    //
-    // Convert date to a string using a specified format
-    //
-    class func convertDateToString(date: NSDate, withFormat format: String) -> String? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.stringFromDate(date)
-    }
-    
-    //
     // Unpack a Date object back into a dictionary
     //
     class func convertDateObjectToDictionary(dateObject: Date) -> [String: String] {
         var newDictionary = [String: String]()
         newDictionary["title"] = dateObject.title
-        newDictionary["date"] = Date.convertDateToString(dateObject.date!, withFormat: "MMddyyyy")
+        if let date = dateObject.date?.convertToStringWithFormat(dateFormatter, format: "MMddyyyy") {
+            newDictionary["date"] = date
+        }
         return newDictionary
     }
     

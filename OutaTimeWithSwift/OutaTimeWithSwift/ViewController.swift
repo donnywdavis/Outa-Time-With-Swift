@@ -85,7 +85,7 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     @IBAction func travelBack(sender: UIButton) {
-        if let newHistoryDate = Date(title: "", date: Date.convertStringToDate(destinationTimeLabel.text!, withFormat: "MMM dd, yyyy")) {
+        if let newHistoryDate = Date(title: "", date: destinationTimeLabel.text?.convertToDateWithFormat(dateFormatter, format: "MMM dd, yyyy")) {
             Date.addHistoryDate(newHistoryDate)
         }
         
@@ -175,22 +175,23 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     
     func selectedDestinationDate(date: NSDate) {
         navigationController?.popViewControllerAnimated(true)
-        setDateLabels(.DestinationTime, date: dateFormatter.stringFromDate(date))
+        setDateLabels(.DestinationTime, date: date.convertToStringWithStyle(dateFormatter, style: .MediumStyle))
         
-        let dateResult: NSComparisonResult = (dateFormatter.dateFromString(presentTimeLabel.text!)?.compare(date))!
-        
-        switch dateResult {
-        case NSComparisonResult.OrderedSame:
-            travelBackButton.enabled = false
-            
-        case NSComparisonResult.OrderedAscending:
-            travelBackButton.setTitle("TRAVEL FORWARD", forState: UIControlState.Normal)
-            travelBackButton.enabled = true
-            
-        case NSComparisonResult.OrderedDescending:
-            travelBackButton.setTitle("TRAVEL BACK", forState: UIControlState.Normal)
-            travelBackButton.enabled = true
+        if let dateResult = presentTimeLabel.text?.convertToDateWithFormat(dateFormatter, format: "MMM dd, yyyy")?.compare(date) {
+            switch dateResult {
+            case NSComparisonResult.OrderedSame:
+                travelBackButton.enabled = false
+                
+            case NSComparisonResult.OrderedAscending:
+                travelBackButton.setTitle("TRAVEL FORWARD", forState: UIControlState.Normal)
+                travelBackButton.enabled = true
+                
+            case NSComparisonResult.OrderedDescending:
+                travelBackButton.setTitle("TRAVEL BACK", forState: UIControlState.Normal)
+                travelBackButton.enabled = true
+            }
         }
+        
     }
 
 }
