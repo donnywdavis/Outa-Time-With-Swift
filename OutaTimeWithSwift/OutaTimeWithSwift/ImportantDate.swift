@@ -119,6 +119,11 @@ class Date: NSObject {
         outputStream?.close()
     }
     
+    
+    //
+    // MARK: Private class methods
+    //
+    
     private class func currentHistory() -> [[String: String]]? {
         // Get the path to the documents directory
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
