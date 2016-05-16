@@ -104,13 +104,11 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
             if let arrayCount = historyDatesArray?.count where arrayCount == 0 {
                 tableView.backgroundView = noDatesLabel
                 tableView.separatorStyle = .None
-                return 0
             }
         case 2:
             if let arrayCount = importantDatesArray?.count where arrayCount == 0 {
                 tableView.backgroundView = noDatesLabel
                 tableView.separatorStyle = .None
-                return 0
             }
         default:
             break
@@ -144,13 +142,13 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
             if let historyDate = historyDatesArray?[indexPath.row] {
-                cell.textLabel?.text = Date.convertDateToStringWithStyle(historyDate.date!, style: .MediumStyle)
+                cell.textLabel?.text = Date.convertDateToString(historyDate.date!, withStyle: .MediumStyle)
                 cell.detailTextLabel?.text = ""
             }
         case 2:
             if let importantDate = importantDatesArray?[indexPath.row] {
                 cell.textLabel?.text = importantDate.title
-                cell.detailTextLabel?.text = Date.convertDateToStringWithStyle(importantDate.date!, style: .MediumStyle)
+                cell.detailTextLabel?.text = Date.convertDateToString(importantDate.date!, withStyle: .MediumStyle)
             }
         default:
             cell.textLabel?.text = ""
@@ -189,7 +187,8 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if dateSelectionSegmentControl.selectedSegmentIndex == 1 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
-//                appDelegate.historyArray.removeAtIndex(indexPath.row)
+                Date.removeHistoryDate(indexPath)
+                historyDatesArray?.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             }
         }
