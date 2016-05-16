@@ -144,13 +144,13 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
         switch dateSelectionSegmentControl.selectedSegmentIndex {
         case 1:
             if let historyDate = historyDatesArray?[indexPath.row] {
-                cell.textLabel?.text = Date.convertDateToStringWithStyle(historyDate.date!, style: .MediumStyle)
+                cell.textLabel?.text = Date.convertDateToString(historyDate.date!, withStyle: .MediumStyle)
                 cell.detailTextLabel?.text = ""
             }
         case 2:
             if let importantDate = importantDatesArray?[indexPath.row] {
                 cell.textLabel?.text = importantDate.title
-                cell.detailTextLabel?.text = Date.convertDateToStringWithStyle(importantDate.date!, style: .MediumStyle)
+                cell.detailTextLabel?.text = Date.convertDateToString(importantDate.date!, withStyle: .MediumStyle)
             }
         default:
             cell.textLabel?.text = ""
