@@ -17,7 +17,10 @@ class Date: NSObject {
     // MARK: Initializers
     //
     
-    init(title: String?, date: NSDate?) {
+    init?(title: String?, date: NSDate?) {
+        guard let title = title, let date = date else {
+            return nil
+        }
         self.title = title
         self.date = date
     }
@@ -127,27 +130,39 @@ class Date: NSObject {
     //
     class func addHistoryDate(historyDate: Date) {
         // Get an array of the current history items
-        var historyArray = currentHistory()
-        
-        // Check that we have a file path
-        guard let filePath = getHistoryPath() else {
+        guard var historyArray = currentHistory() else {
             return
         }
         
-        // Create an output stream to write to
-        let outputStream = NSOutputStream(toFileAtPath: filePath, append: false)
+        // Convert the date to a dictionary
+        let newDate = Date.convertDateObjectToDictionary(historyDate)
+        
+        for date in historyArray {
+            if date == newDate {
+                return
+            }
+        }
         
         // Add our new date to the current array
-        historyArray?.append(Date.convertDateObjectToDictionary(historyDate))
+        historyArray.append(Date.convertDateObjectToDictionary(historyDate))
         
-        // Open up the output stream for writing to
-        outputStream?.open()
+        writeHistoryData(historyArray)
+
+    }
+    
+    //
+    // Remove date from history list
+    //
+    class func removeHistoryDate(index: NSIndexPath) {
+        // Get our current history items
+        guard var historyArray = currentHistory() else {
+            return
+        }
         
-        // Write the new date to the file
-        NSJSONSerialization.writeJSONObject(historyArray!, toStream: outputStream!, options: .PrettyPrinted, error: nil)
+        // Remove the specified date
+        historyArray.removeAtIndex(index.row)
         
-        // Close the output stream
-        outputStream?.close()
+        writeHistoryData(historyArray)
     }
     
     
@@ -193,6 +208,28 @@ class Date: NSObject {
         } catch {
             return nil
         }
+    }
+    
+    //
+    // Write history date to file
+    //
+    private class func writeHistoryData(historyArray: [[String: String]]) {
+        // Check that we have a file path
+        guard let filePath = getHistoryPath() else {
+            return
+        }
+        
+        // Create an output stream to write to
+        let outputStream = NSOutputStream(toFileAtPath: filePath, append: false)
+        
+        // Open up the output stream for writing to
+        outputStream?.open()
+        
+        // Write the new date to the file
+        NSJSONSerialization.writeJSONObject(historyArray, toStream: outputStream!, options: .PrettyPrinted, error: nil)
+        
+        // Close the output stream
+        outputStream?.close()
     }
     
 }

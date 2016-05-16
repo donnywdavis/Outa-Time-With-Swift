@@ -189,7 +189,8 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if dateSelectionSegmentControl.selectedSegmentIndex == 1 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
-//                appDelegate.historyArray.removeAtIndex(indexPath.row)
+                Date.removeHistoryDate(indexPath)
+                historyDatesArray?.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             }
         }

@@ -85,8 +85,9 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     @IBAction func travelBack(sender: UIButton) {
-        let newHistoryDate = Date(title: "", date: Date.convertStringToDate(destinationTimeLabel.text!, withFormat: "MMM dd, yyyy"))
-        Date.addHistoryDate(newHistoryDate)
+        if let newHistoryDate = Date(title: "", date: Date.convertStringToDate(destinationTimeLabel.text!, withFormat: "MMM dd, yyyy")) {
+            Date.addHistoryDate(newHistoryDate)
+        }
         
         timerOperations(.Start, interval: 0.1, selector: #selector(ViewController.increaseSpeed))
     }
