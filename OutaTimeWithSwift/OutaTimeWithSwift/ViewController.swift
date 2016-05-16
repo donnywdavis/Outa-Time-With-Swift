@@ -85,9 +85,6 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
     //
     
     @IBAction func travelBack(sender: UIButton) {
-        if !appDelegate.historyArray.contains(destinationTimeLabel.text!) {
-            appDelegate.historyArray.append(destinationTimeLabel.text!)
-        }
         let newHistoryDate = Date(title: "", date: Date.convertDateFromString(destinationTimeLabel.text!, format: "MMM dd, yyyy"))
         Date.addHistoryDate(newHistoryDate)
         

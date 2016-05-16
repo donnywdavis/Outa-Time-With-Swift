@@ -12,17 +12,6 @@ protocol DestinationDateSelectionDelegate: class {
     func selectedDestinationDate(date: NSDate)
 }
 
-//enum ImportantDates: String {
-//    case Custom
-//    case DeclarationOfIndependence = "07/04/1776"
-//    case KennedyAssassination = "11/22/1963"
-//    case MoonLanding = "07/20/1969"
-//    case StarWarsRelease = "05/25/1977"
-//    case BackToTheFutureRelease = "07/03/1985"
-//    case FluxCapacitorCreated = "11/12/1955"
-//    
-//    static var count: Int = {return ImportantDates.StarWarsRelease.hashValue + 1}()
-//}
 
 class DestinationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -41,7 +30,6 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     
     var importantDatesArray = Date.loadImportantDates()
     var historyDatesArray = Date.loadHistoryDates()
-//    let historyDatesArray = [Date]?()
     
 
     //
@@ -201,7 +189,7 @@ class DestinationViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if dateSelectionSegmentControl.selectedSegmentIndex == 1 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
-                appDelegate.historyArray.removeAtIndex(indexPath.row)
+//                appDelegate.historyArray.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             }
         }
