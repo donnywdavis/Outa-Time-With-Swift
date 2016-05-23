@@ -92,6 +92,11 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
             Date.addHistoryDate(newHistoryDate)
         }
         
+//        let fullRotation = CGFloat(M_PI * 2)
+//        UIView.animateWithDuration(1.0, animations: {
+//            self.destinationTimeLabel.transform = CGAffineTransformMakeRotation(fullRotation)
+//        })
+        
         timerOperations(.Start, interval: 0.1, selector: #selector(ViewController.increaseSpeed))
     }
     
@@ -103,6 +108,47 @@ class ViewController: UIViewController, DestinationDateSelectionDelegate {
         case 88:
             timerOperations(.Stop, interval: nil, selector: nil)
             view.backgroundColor = UIColor.whiteColor()
+            
+            let fullRotation = CGFloat(M_PI * 2)
+            let duration = 2.0
+            let options = UIViewKeyframeAnimationOptions.CalculationModeLinear
+            
+            UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1/3, animations: {
+                    self.destinationTimeLabel.transform = CGAffineTransformMakeRotation(1/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(1/3, relativeDuration: 1/3, animations: {
+                    self.destinationTimeLabel.transform = CGAffineTransformMakeRotation(2/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: {
+                    self.destinationTimeLabel.transform = CGAffineTransformMakeRotation(3/3 * fullRotation)
+                })
+                }, completion: nil)
+            
+            UIView.animateKeyframesWithDuration(duration, delay: 0.3, options: options, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1/3, animations: { 
+                    self.presentTimeLabel.transform = CGAffineTransformMakeRotation(1/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(1/3, relativeDuration: 1/3, animations: { 
+                    self.presentTimeLabel.transform = CGAffineTransformMakeRotation(2/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: { 
+                    self.presentTimeLabel.transform = CGAffineTransformMakeRotation(3/3 * fullRotation)
+                })
+                }, completion: nil)
+            
+            UIView.animateKeyframesWithDuration(duration, delay: 0.6, options: options, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1/3, animations: {
+                    self.departedTimeLabel.transform = CGAffineTransformMakeRotation(1/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(1/3, relativeDuration: 1/3, animations: {
+                    self.departedTimeLabel.transform = CGAffineTransformMakeRotation(2/3 * fullRotation)
+                })
+                UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: {
+                    self.departedTimeLabel.transform = CGAffineTransformMakeRotation(3/3 * fullRotation)
+                })
+                }, completion: nil)
+            
             timerOperations(.Start, interval: 0.3, selector: #selector(ViewController.decreaseSpeed))
             
         default:
